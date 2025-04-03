@@ -8,10 +8,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.linear_model import LinearRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import os
 import sys
-from sklearn.neighbors import KNeighborsRegressor
 sys.path.append(os.path.abspath('..'))  # Adds the parent directory to sys.path
 
 import logging
@@ -29,7 +29,7 @@ def load_data():
 
 
 def train_model():
-    """Trains a Random Forest model with GridSearchCV and saves evaluation metrics to CSV."""
+    """Trains a Random Forest model"""
     df = load_data()
 
 
@@ -42,19 +42,19 @@ def train_model():
     )
 
 
-    model=KNeighborsRegressor(n_neighbors=5)
+    model=RandomForestRegressor()
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
 
      # Saving random forest in pickle format
-    logging.info('saving Knn regression...')
-    with open(os.path.join(config.MODELS_PATH, "knn_regression.pickle"), "wb") as file:
+    logging.info('saving Random Forest regression...')
+    with open(os.path.join(config.MODELS_PATH, "RF_regression.pickle"), "wb") as file:
         pickle.dump(model,file)
 
 
 
 def train_model_bonus():
-    """Trains a Random Forest model with GridSearchCV and saves evaluation metrics to CSV."""
+    """Trains a Random Forest model """
     df = load_data()
 
 
@@ -67,13 +67,13 @@ def train_model_bonus():
     )
 
 
-    model=KNeighborsRegressor(n_neighbors=5)
+    model=RandomForestRegressor()
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
 
      # Saving random forest in pickle format
-    logging.info('saving Knn regression...')
-    with open(os.path.join(config.MODELS_PATH, "knn_regression_bonus.pickle"), "wb") as file:
+    logging.info('saving RF regression...')
+    with open(os.path.join(config.MODELS_PATH, "RF_regression_bonus.pickle"), "wb") as file:
         pickle.dump(model,file)
 
 
